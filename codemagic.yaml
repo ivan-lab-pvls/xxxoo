@@ -22,4 +22,4 @@ workflows:
 
       - name: Build iOS
         script:
-          - flutter build ios
+          - flutter build ios --obfuscate --split-debug-info=debug-info
