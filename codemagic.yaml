@@ -1,0 +1,39 @@
+# Codemagic UI under Apple Developer Portal integration.
+workflows:
+  ios-workflow:
+    name: iOS Workflow
+    integrations:
+      app_store_connect: codemagic
+
+    environment:
+      # ...  
+
+    scripts:
+      - name: Install Firebase CLI
+        script: |
+          npm install -g firebase-tools
+
+      - name: Authenticate Firebase CLI
+        script: |
+          firebase login:ci --interactive
+
+      - name: Configure Firebase for iOS
+        script: |
+          firebase use --add
+          # Choose your Firebase project from the list and associate it with your Codemagic app.
+
+      - name: Build and Deploy iOS App
+        script: |
+          # Build your iOS app here
+          # Deploy your app using Firebase here
+          
+    publishing:
+      app_store_connect:
+        auth: integration 
+        submit_to_testflight: true
+        expire_build_submitted_for_review: true
+        submit_to_app_store: true
+        cancel_previous_submissions: true
+        release_type: SCHEDULED
+        earliest_release_date: 2021-12-01T14:00:00+00:00 
+        copyright: own
